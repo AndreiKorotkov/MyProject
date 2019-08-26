@@ -66,7 +66,7 @@ public class MailTest {
         WebElement saveDraftButton = driver.findElement(By.cssSelector("span.button2_base:nth-child(2)"));
         saveDraftButton.click();
         driver.findElement(By.xpath("//div[@class=\"focus-zone focus-zone_fluid\"]//button[@title=\"Закрыть\"]")).click();
-        Thread.sleep(2000);
+        new WebDriverWait(driver,10).until(ExpectedConditions.invisibilityOf(driver.findElement(By.xpath("//div[@class=\"focus-zone focus-zone_fluid\"]"))));
         driver.findElement(By.cssSelector("a[href=\"/drafts/\"]")).click();
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.llc_first")));
         driver.findElement(By.cssSelector("a.llc_first")).click();
@@ -77,7 +77,7 @@ public class MailTest {
         driver.findElement(By.cssSelector("span[title=\"Отправить\"]")).click();
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class=\"layer-sent-page\"]//span[@class=\"button2__ico\"]")));
         driver.findElement(By.xpath("//div[@class=\"layer-sent-page\"]//span[@class=\"button2__ico\"]")).click();
-        Thread.sleep(2000);
+        new WebDriverWait(driver, 10, 500).until(ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.cssSelector("a[href=\"/drafts/\"]")),"title"));
         Assert.assertEquals(driver.findElement(By.cssSelector("a[href=\"/drafts/\"]")).getAttribute("title"), "Нет писем");
     }
 
