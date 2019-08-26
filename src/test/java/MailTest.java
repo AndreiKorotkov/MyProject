@@ -47,7 +47,8 @@ public class MailTest {
         domainSelect.selectByVisibleText("@bk.ru");
         WebElement loginForm = driver.findElement(By.id("auth"));
         loginForm.submit();
-        Thread.sleep(3000);
+        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(By.cssSelector("span.compose-button__wrapper")));
+        //Thread.sleep(3000);
         String loginURL = driver.getCurrentUrl();
         Assert.assertEquals(loginURL, "https://e.mail.ru/inbox/?back=1&afterReload=1");
     }
