@@ -14,7 +14,7 @@ public class SentPage extends AbstractPage {
     private WebElement firstLetter;
 
     @FindBy(how = How.XPATH, using = "//a[contains (@class, 'llc')][1]//span[@class='ll-crpt']")
-    WebElement firstLetterAdressee;
+    private WebElement firstLetterAdressee;
 
     @FindBy(how = How.XPATH, using = "//a[contains (@class, 'llc')][1]//span[@class='ll-sj__normal']")
     private WebElement firstLetterSubject;

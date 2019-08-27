@@ -13,7 +13,6 @@ public class DraftsPage extends AbstractPage {
     @FindBy(xpath = "//div[@class='subject__container--HWnat']//input")
     private WebElement subjectField;
 
-    //@FindBy(xpath = "//a[contains (@class, \"llc\")][1]")
     @FindBy(how= How.XPATH,using = "//a[contains (@class, 'llc_first')]")
     private WebElement firstDraft;
 
@@ -34,10 +33,6 @@ public class DraftsPage extends AbstractPage {
 
     public DraftsPage(WebDriver driver) {
         super(driver);
-    }
-
-    public String readURL() {
-        return driver.getCurrentUrl();
     }
 
     public void clickFirstDraft() {
@@ -68,5 +63,4 @@ public class DraftsPage extends AbstractPage {
         closeSentReportButton.click();
         return this;
     }
-
 }

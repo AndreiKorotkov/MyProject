@@ -1,6 +1,5 @@
 package PageObjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,12 +27,10 @@ public class Menu extends AbstractPage {
         return draftsLinkButton.getAttribute("title");
     }
 
-    public Menu goToSentMessages() {
+    public void goToSentMessages() {
         waitForElementVisible(sentMessagesButton);
         sentMessagesButton.click();
-        return this;
     }
-
 
     public Menu exitAccount () {
         waitForElementVisible(exitButton);
