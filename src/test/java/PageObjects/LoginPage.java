@@ -11,11 +11,6 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class LoginPage extends AbstractPage{
 
-//    private static final By loginInput = By.cssSelector("input[placeholder='Имя ящика']");
-//    private static final By PASSWORD_INPUT_LOCATOR = By.id("mailbox:password");
-//    private static final By DOMAIN_SELECTOR_LOCATOR = By.id("mailbox:domain");
-//    private static final By LOGIN_FORM_LOCATOR = By.id("auth");
-
     @FindBy(css = "input[placeholder='Имя ящика']")
     private WebElement loginInput;
 
@@ -28,10 +23,8 @@ public class LoginPage extends AbstractPage{
     @FindBy(id = "auth")
     private WebElement loginForm;
 
-
     private String login = "dfjwgge82h43g3uriy53h";
     private String password = "PlOkIjUHYGC";
-
 
     public LoginPage (WebDriver driver) {
         super(driver);

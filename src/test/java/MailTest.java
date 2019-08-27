@@ -3,21 +3,23 @@
  */
 
 import PageObjects.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import java.util.concurrent.TimeUnit;
 
 public class MailTest {
     public WebDriver driver;
-
-//    public String adressee = "ankorotkov66@gmail.com";
-//    public String subject = "autoTest";
-//    public String body = "This is autotest letter";
 
     @BeforeClass
     public void startBrowser() {
@@ -36,34 +38,36 @@ public class MailTest {
         Assert.assertEquals(MailInboxPage.getInboxPageURL(), "https://e.mail.ru/inbox/?back=1&afterReload=1");
     }
 
-    @Test (dependsOnMethods = {"mailLoginTest"})
-    public void writeDraft ()throws InterruptedException {
-        Thread.sleep(2000);
+    @Test(dependsOnMethods = {"mailLoginTest"})
+    public void writeDraft() throws InterruptedException {
         InboxPage MailInboxPage = new InboxPage(driver).clickWriteLetter().enterAdressee().enterSubject().enterBodyOfLetter().saveDraft().closeFocusField();
-        Assert.assertTrue(MailInboxPage.readNumberOfDrafts()!="Нет писем");
+        Assert.assertTrue(MailInboxPage.readNumberOfDrafts() != "Нет писем");
         MailInboxPage.goToDrafts();
     }
 
-    @Test (dependsOnMethods = {"writeDraft"})
-    public void checkDraft()throws InterruptedException {
-        DraftsPage MailDraftPage = new DraftsPage(driver).clickFirstDraft();
-        Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(),"ankorotkov66@gmail.com");
+    @Test(dependsOnMethods = {"writeDraft"})
+    public void checkDraft() throws InterruptedException {
+        DraftsPage MailDraftPage = new DraftsPage(driver);
+        MailDraftPage.clickFirstDraft();
+        Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(), "ankorotkov66@gmail.com");
         Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
         Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
         MailDraftPage.sendLetter().closeReportLetterMessage();
-        Menu MyMenu = new Menu(driver).goToSentMessages();
+        Menu MyMenu = new Menu(driver);
+        Assert.assertTrue(MyMenu.readNumberOfDrafts().equals("Нет писем"));
+        MyMenu.goToSentMessages();
     }
 
     @Test(dependsOnMethods = {"checkDraft"})
-    public void checkSentMessages () throws InterruptedException {
+    public void checkSentMessages() throws InterruptedException {
         SentPage MailSentPage = new SentPage(driver);
         Assert.assertEquals(MailSentPage.readFirstLetterAdressee(), "ankorotkov66@gmail.com");
         Assert.assertEquals(MailSentPage.readFirstLetterSubject(), "autoTest");
         Menu MyMenu = new Menu(driver).exitAccount();
     }
 
-//    @AfterClass
-//    public void exitBrowser() {
-//        driver.quit();
-//    }
+    @AfterClass
+    public void exitBrowser() {
+        driver.quit();
+    }
 }
