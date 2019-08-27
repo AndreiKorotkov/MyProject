@@ -10,14 +10,11 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import java.util.concurrent.TimeUnit;
 
 public class MailTest {
     public WebDriver driver;
-
-//    public String adressee = "ankorotkov66@gmail.com";
-//    public String subject = "autoTest";
-//    public String body = "This is autotest letter";
 
     @BeforeClass
     public void startBrowser() {
@@ -36,17 +33,17 @@ public class MailTest {
         Assert.assertEquals(MailInboxPage.getInboxPageURL(), "https://e.mail.ru/inbox/?back=1&afterReload=1");
     }
 
-    @Test (dependsOnMethods = {"mailLoginTest"})
-    public void writeDraft ()throws InterruptedException {
+    @Test(dependsOnMethods = {"mailLoginTest"})
+    public void writeDraft() throws InterruptedException {
         InboxPage MailInboxPage = new InboxPage(driver).clickWriteLetter().enterAdressee().enterSubject().enterBodyOfLetter().saveDraft().closeFocusField();
-        Assert.assertTrue(MailInboxPage.readNumberOfDrafts()!="Нет писем");
+        Assert.assertTrue(MailInboxPage.readNumberOfDrafts() != "Нет писем");
         MailInboxPage.goToDrafts();
     }
 
-    @Test (dependsOnMethods = {"writeDraft"})
-    public void checkDraft()throws InterruptedException {
+    @Test(dependsOnMethods = {"writeDraft"})
+    public void checkDraft() throws InterruptedException {
         DraftsPage MailDraftPage = new DraftsPage(driver).clickFirstDraft();
-        Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(),"ankorotkov66@gmail.com");
+        Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(), "ankorotkov66@gmail.com");
         Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
         Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
         MailDraftPage.sendLetter().closeReportLetterMessage();
@@ -54,11 +51,13 @@ public class MailTest {
     }
 
     @Test(dependsOnMethods = {"checkDraft"})
-    public void checkSentMessages () throws InterruptedException {
+    public void checkSentMessages() throws InterruptedException {
         SentPage MailSentPage = new SentPage(driver);
         Assert.assertEquals(MailSentPage.readFirstLetterAdressee(), "ankorotkov66@gmail.com");
         Assert.assertEquals(MailSentPage.readFirstLetterSubject(), "autoTest");
-        Menu MyMenu = new Menu(driver).exitAccount();
+        Menu MyMenu = new Menu(driver);
+        Assert.assertTrue(MyMenu.readNumberOfDrafts().equals("Нет писем"));
+        MyMenu.exitAccount();
     }
 
     @AfterClass

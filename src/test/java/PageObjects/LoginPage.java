@@ -2,13 +2,12 @@ package PageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 /**
  * created by Andrei_Korotkov 8/27/2019
  */
-public class LoginPage extends AbstractPage{
+public class LoginPage extends AbstractPage {
 
     private static final By LOGIN_INPUT_LOCATOR = By.cssSelector("input[placeholder='Имя ящика']");
     private static final By PASSWORD_INPUT_LOCATOR = By.id("mailbox:password");
@@ -17,23 +16,22 @@ public class LoginPage extends AbstractPage{
     private String login = "dfjwgge82h43g3uriy53h";
     private String password = "PlOkIjUHYGC";
 
-
-    public LoginPage (WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         super(driver);
     }
 
-    public LoginPage open () {
+    public LoginPage open() {
         driver.get("https://mail.ru//");
         return this;
     }
 
-    public LoginPage enterLogin () {
+    public LoginPage enterLogin() {
         waitForElementVisible(LOGIN_INPUT_LOCATOR);
         driver.findElement(LOGIN_INPUT_LOCATOR).sendKeys(login);
         return this;
     }
 
-    public LoginPage enterPassword () {
+    public LoginPage enterPassword() {
         driver.findElement(PASSWORD_INPUT_LOCATOR).sendKeys(password);
         return this;
     }
@@ -43,7 +41,7 @@ public class LoginPage extends AbstractPage{
         return this;
     }
 
-    public LoginPage loginToMailBox () {
+    public LoginPage loginToMailBox() {
         driver.findElement(LOGIN_FORM_LOCATOR).submit();
         return this;
     }
