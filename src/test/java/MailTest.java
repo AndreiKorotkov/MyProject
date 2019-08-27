@@ -38,6 +38,7 @@ public class MailTest {
 
     @Test (dependsOnMethods = {"mailLoginTest"})
     public void writeDraft ()throws InterruptedException {
+        Thread.sleep(2000);
         InboxPage MailInboxPage = new InboxPage(driver).clickWriteLetter().enterAdressee().enterSubject().enterBodyOfLetter().saveDraft().closeFocusField();
         Assert.assertTrue(MailInboxPage.readNumberOfDrafts()!="Нет писем");
         MailInboxPage.goToDrafts();
@@ -61,8 +62,8 @@ public class MailTest {
         Menu MyMenu = new Menu(driver).exitAccount();
     }
 
-    @AfterClass
-    public void exitBrowser() {
-        driver.quit();
-    }
+//    @AfterClass
+//    public void exitBrowser() {
+//        driver.quit();
+//    }
 }
