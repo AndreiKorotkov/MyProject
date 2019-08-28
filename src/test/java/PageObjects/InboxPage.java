@@ -9,7 +9,7 @@ import org.openqa.selenium.support.How;
 /**
  * created by Andrei_Korotkov 8/27/2019
  */
-public class InboxPage extends AbstractPage {
+public class InboxPage extends Menu {
 
     @FindBy(how = How.CSS, using = "span.compose-button")
     WebElement writeLetterButton;
@@ -31,9 +31,6 @@ public class InboxPage extends AbstractPage {
 
     @FindBy(xpath = "//div[@class=\"focus-zone focus-zone_fluid\"]//button[@title=\"Закрыть\"]")
     WebElement closeFocusedZoneButton;
-
-    @FindBy(css = "a[href=\"/drafts/\"]")
-    WebElement draftsButton;
 
     @FindBy(xpath = "//div[@class=\"focus-zone focus-zone_fluid\"]")
     WebElement focusZone;
@@ -80,16 +77,6 @@ public class InboxPage extends AbstractPage {
 
     public InboxPage closeFocusField () {
         closeFocusedZoneButton.click();
-        return this;
-    }
-
-    public String readNumberOfDrafts () {
-         return draftsButton.getAttribute("title");
-    }
-
-    public InboxPage goToDrafts () {
-        waitForElementClickable(draftsButton);
-        draftsButton.click();
         return this;
     }
 }

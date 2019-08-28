@@ -48,9 +48,9 @@ public class MailTest {
         Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
         Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
         MailDraftPage.sendLetter().closeReportLetterMessage();
-        Menu MyMenu = new Menu(driver);
-        Assert.assertTrue(MyMenu.readNumberOfDrafts().equals("Нет писем"));
-        MyMenu.goToSentMessages();
+        //Menu MyMenu = new Menu(driver);
+        Assert.assertTrue(MailDraftPage.readNumberOfDrafts().equals("Нет писем"));
+        MailDraftPage.goToSentMessages();
     }
 
     @Test(dependsOnMethods = {"checkDraft"})
@@ -58,11 +58,11 @@ public class MailTest {
         SentPage MailSentPage = new SentPage(driver);
         Assert.assertEquals(MailSentPage.readFirstLetterAdressee(), "ankorotkov66@gmail.com");
         Assert.assertEquals(MailSentPage.readFirstLetterSubject(), "autoTest");
-        Menu MyMenu = new Menu(driver).exitAccount();
+        MailSentPage.exitAccount();
     }
 
-    @AfterClass
-    public void exitBrowser() {
-        driver.quit();
-    }
+//    @AfterClass
+//    public void exitBrowser() {
+//        driver.quit();
+//    }
 }

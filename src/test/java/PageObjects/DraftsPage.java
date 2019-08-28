@@ -8,12 +8,12 @@ import org.openqa.selenium.support.How;
 /**
  * created by Andrei_Korotkov 8/27/2019
  */
-public class DraftsPage extends AbstractPage {
+public class DraftsPage extends Menu {
 
     @FindBy(xpath = "//div[@class='subject__container--HWnat']//input")
     private WebElement subjectField;
 
-    @FindBy(how= How.XPATH,using = "//a[contains (@class, 'llc_first')]")
+    @FindBy(how= How.XPATH,using = "//a[contains (@class, 'js-letter-list-item')] [1]")
     private WebElement firstDraft;
 
     @FindBy(xpath = "//div[contains (@class, \"focus-zone\")]//span[contains(@class, \"text\")]")
@@ -36,7 +36,7 @@ public class DraftsPage extends AbstractPage {
     }
 
     public void clickFirstDraft() {
-        waitForElementClickable(firstDraft);
+        waitForElementVisible(firstDraft);
         firstDraft.click();
     }
 

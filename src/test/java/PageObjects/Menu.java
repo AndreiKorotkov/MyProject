@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 public class Menu extends AbstractPage {
 
     @FindBy(css = "a[href=\"/drafts/\"]")
-    private WebElement draftsLinkButton;
+    private WebElement draftsButton;
 
     @FindBy(css = "a[href=\"/sent/\"]")
     private WebElement sentMessagesButton;
@@ -23,8 +23,14 @@ public class Menu extends AbstractPage {
     }
 
     public String readNumberOfDrafts () {
-        waitForElementHasAttribute(draftsLinkButton, "title");
-        return draftsLinkButton.getAttribute("title");
+        waitForElementHasAttribute(draftsButton, "title");
+        return draftsButton.getAttribute("title");
+    }
+
+    public Menu goToDrafts () {
+        waitForElementClickable(draftsButton);
+        draftsButton.click();
+        return this;
     }
 
     public void goToSentMessages() {

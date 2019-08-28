@@ -8,7 +8,7 @@ import org.openqa.selenium.support.How;
 /**
  * created by Andrei_Korotkov 8/27/2019
  */
-public class SentPage extends AbstractPage {
+public class SentPage extends Menu {
 
     @FindBy(css = "a.llc_first")
     private WebElement firstLetter;

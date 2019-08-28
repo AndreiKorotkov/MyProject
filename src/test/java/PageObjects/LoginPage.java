@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 /**
  * created by Andrei_Korotkov 8/27/2019
  */
-public class LoginPage extends AbstractPage{
+public class LoginPage extends Menu{
 
     @FindBy(css = "input[placeholder='Имя ящика']")
     private WebElement loginInput;
