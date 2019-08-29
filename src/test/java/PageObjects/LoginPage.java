@@ -1,7 +1,9 @@
 package PageObjects;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -47,6 +49,8 @@ public class LoginPage extends Menu{
 
     public LoginPage chooseDomain() {
         new Select(domainSelector).selectByVisibleText("@bk.ru");
+        Actions selectDomain = new Actions(driver);
+        selectDomain.click(domainSelector).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
         return this;
     }
 

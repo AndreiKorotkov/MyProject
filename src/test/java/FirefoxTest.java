@@ -1,36 +1,37 @@
-/**
- * created by Andrei_Korotkov 8/26/2019
- */
-
-import PageObjects.*;
+import PageObjects.DraftsPage;
+import PageObjects.InboxPage;
+import PageObjects.LoginPage;
+import PageObjects.SentPage;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import sun.security.util.DerEncoder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class MailTest {
+public class FirefoxTest {
     public static WebDriver driver;
 
     @BeforeClass
-    public void startBrowser() throws MalformedURLException {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-        options.setCapability("Platform", "WIN10");
-        options.setCapability("browserName", "chrome");
-        //options.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
+    public void setup() throws MalformedURLException {
+        System.setProperty("webdriver.gecko.driver", "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe");
+        FirefoxOptions firefoxOptions = new FirefoxOptions();
+        firefoxOptions.setCapability("Platform", "WIN10");
+        firefoxOptions.setCapability("browserName", "firefox");
+        firefoxOptions.addArguments("start-maximized");
+        firefoxOptions.setCapability(FirefoxDriver.MARIONETTE, true);
+        firefoxOptions.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
         URL url = new URL("http://192.168.1.5:4444/wd/hub");
-        driver = new RemoteWebDriver(url, options);
+        driver = new RemoteWebDriver(url, firefoxOptions);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
     }

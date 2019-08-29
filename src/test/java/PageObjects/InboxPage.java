@@ -1,6 +1,7 @@
 package PageObjects;
 
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,9 @@ public class InboxPage extends Menu {
 
     @FindBy(css = "span.button2_base:nth-child(2)")
     WebElement saveDraftButton;
+
+    @FindBy(xpath = "//div[@class='contactsContainer--3RMuQ']//span[contains(@class, 'text')]")
+    private WebElement filledAdresseeField;
 
     @FindBy(xpath = "//div[@class=\"focus-zone focus-zone_fluid\"]//button[@title=\"Закрыть\"]")
     WebElement closeFocusedZoneButton;
@@ -67,6 +71,15 @@ public class InboxPage extends Menu {
 
     public InboxPage enterBodyOfLetter () {
         letterBody.sendKeys(body);
+        return this;
+    }
+
+    public InboxPage highlightLetterElements () throws InterruptedException {
+        JavascriptExecutor jsHighlilhter = (JavascriptExecutor)driver;
+        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", filledAdresseeField);
+        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", subjectField);
+        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", letterBody);
+        Thread.sleep(2000); //для заметности выделения
         return this;
     }
 
