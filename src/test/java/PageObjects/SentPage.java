@@ -48,7 +48,6 @@ public class SentPage extends Menu {
         return this;
     }
 
-
     public SentPage(WebDriver driver) {
         super(driver);
     }

@@ -4,7 +4,7 @@
     <test name="gridMailTest">
         <classes>
             <class name="FirefoxTest"></class>
-            <class name="MailTest"></class>
+            <class name="ChromeTest"></class>
         </classes>
     </test> <!-- calculatorTest -->
 </suite> <!-- Default Suite -->

@@ -4,10 +4,7 @@
 
 import PageObjects.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -18,7 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class MailTest {
+public class ChromeTest {
     public static WebDriver driver;
 
     @BeforeClass
@@ -28,7 +25,6 @@ public class MailTest {
         options.addArguments("start-maximized");
         options.setCapability("Platform", "WIN10");
         options.setCapability("browserName", "chrome");
-        //options.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
         URL url = new URL("http://192.168.1.5:4444/wd/hub");
         driver = new RemoteWebDriver(url, options);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -59,8 +55,7 @@ public class MailTest {
         Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
         Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
         MailDraftPage.sendLetter().closeReportLetterMessage();
-        //Menu MyMenu = new Menu(driver);
-        //Assert.assertTrue(MailDraftPage.readNumberOfDrafts().equals("Нет писем"));
+        Assert.assertTrue(MailDraftPage.readNumberOfDrafts().equals("Нет писем"));
         MailDraftPage.goToSentMessages();
     }
 

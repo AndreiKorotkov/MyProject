@@ -1,18 +1,12 @@
-import PageObjects.DraftsPage;
-import PageObjects.InboxPage;
-import PageObjects.LoginPage;
-import PageObjects.SentPage;
-import org.openqa.selenium.Platform;
+import PageObjects.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import sun.security.util.DerEncoder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -60,8 +54,7 @@ public class FirefoxTest {
         Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
         Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
         MailDraftPage.sendLetter().closeReportLetterMessage();
-        //Menu MyMenu = new Menu(driver);
-        //Assert.assertTrue(MailDraftPage.readNumberOfDrafts().equals("Нет писем"));
+        Assert.assertTrue(MailDraftPage.readNumberOfDrafts().equals("Нет писем"));
         MailDraftPage.goToSentMessages();
     }
 

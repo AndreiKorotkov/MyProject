@@ -1,5 +1,6 @@
 package PageObjects;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,7 @@ public class Menu extends AbstractPage {
 
     public String readNumberOfDrafts () {
         waitForElementHasAttribute(draftsButton, "title");
+        JavascriptExecutor jsReader = (JavascriptExecutor)driver;
         return draftsButton.getAttribute("title");
     }
 
