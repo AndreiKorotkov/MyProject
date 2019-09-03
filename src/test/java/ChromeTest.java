@@ -4,6 +4,7 @@
 
 import Messages.Message;
 import PageObjects.*;
+import SystemProperties.DriverManager;
 import Users.InvalidUser;
 import Users.ValidUser;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -25,13 +27,7 @@ public class ChromeTest {
 
     @BeforeClass
     public void startBrowser() throws MalformedURLException {
-        System.setProperty("webdriver.chrome.driver", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("start-maximized");
-//        options.setCapability("Platform", "WIN10");
-//        options.setCapability("browserName", "chrome");
-//        URL url = new URL("http://192.168.1.5:4444/wd/hub");
-        driver = new ChromeDriver(options);
+        driver = DriverManager.getDriver("firefox");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
     }
