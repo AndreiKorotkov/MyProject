@@ -51,7 +51,7 @@ public class ChromeTest {
         Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
         Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
         MailDraftPage.sendLetter();
-        Assert.assertTrue(MailDraftPage.readNumberOfDrafts().equals("Нет писем"));
+        Assert.assertEquals(MailDraftPage.readNumberOfDrafts(), "Нет писем");
         MailDraftPage.goToSentMessages();
     }
 
