@@ -1,5 +1,6 @@
 package PageObjects;
 
+import Messages.Message;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,9 +39,6 @@ public class InboxPage extends Menu {
     @FindBy(xpath = "//div[@class=\"focus-zone focus-zone_fluid\"]")
     WebElement focusZone;
 
-    private String adressee = "ankorotkov66@gmail.com";
-    private String subject = "autoTest";
-    private String body = "This is autotest letter";
 
     public InboxPage (WebDriver driver) {
         super(driver);
@@ -58,18 +56,18 @@ public class InboxPage extends Menu {
         return this;
     }
 
-    public InboxPage enterAdressee () {
+    public InboxPage enterAdressee (String addressee) {
         waitForElementVisible(adresseeField);
-        adresseeField.sendKeys(adressee);
+        adresseeField.sendKeys(addressee);
         return this;
     }
 
-    public InboxPage enterSubject() {
+    public InboxPage enterSubject(String subject) {
         subjectField.sendKeys(subject);
         return this;
     }
 
-    public InboxPage enterBodyOfLetter () {
+    public InboxPage enterBodyOfLetter (String body) {
         letterBody.sendKeys(body);
         return this;
     }
@@ -90,6 +88,17 @@ public class InboxPage extends Menu {
 
     public InboxPage closeFocusField () {
         closeFocusedZoneButton.click();
+        return this;
+    }
+
+    public InboxPage writeDraft (Message message) throws InterruptedException {
+        clickWriteLetter();
+        enterAdressee(message.getAddressee());
+        enterSubject(message.getSubject());
+        enterBodyOfLetter(message.getBody());
+        highlightLetterElements();
+        saveDraft();
+        closeFocusField();
         return this;
     }
 }

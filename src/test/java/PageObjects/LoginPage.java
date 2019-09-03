@@ -1,9 +1,8 @@
 package PageObjects;
 
-import org.openqa.selenium.Keys;
+import Users.ValidUser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -24,9 +23,6 @@ public class LoginPage extends Menu{
     @FindBy(id = "auth")
     private WebElement loginForm;
 
-    private String login = "dfjwgge82h43g3uriy53h";
-    private String password = "PlOkIjUHYGC";
-
     public LoginPage (WebDriver driver) {
         super(driver);
     }
@@ -36,27 +32,31 @@ public class LoginPage extends Menu{
         return this;
     }
 
-    public LoginPage enterLogin () {
+    public LoginPage enterLogin (String login) {
         waitForElementVisible(loginInput);
         loginInput.sendKeys(login);
         return this;
     }
 
-    public LoginPage enterPassword () {
+    public LoginPage enterPassword (String password) {
         passwordInput.sendKeys(password);
         return this;
     }
 
-    public LoginPage chooseDomain() {
-        new Select(domainSelector).selectByVisibleText("@bk.ru");
-        Actions selectDomain = new Actions(driver);
-        selectDomain.click(domainSelector).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+    public LoginPage chooseDomain(String domain) {
+        new Select(domainSelector).selectByVisibleText(domain);
         return this;
     }
 
-    public LoginPage loginToMailBox () {
+    public void loginToMailBox (ValidUser validUser) {
+        String login = validUser.getLOGIN();
+        String password = validUser.getPASSWORD();
+        String domain = validUser.getDOMAIN();
+        open();
+        enterLogin(login);
+        enterPassword(password);
+        chooseDomain(domain);
         loginForm.submit();
-        return this;
     }
 
 }

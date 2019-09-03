@@ -35,9 +35,11 @@ public class DraftsPage extends Menu {
         super(driver);
     }
 
-    public void clickFirstDraft() {
+    public DraftsPage clickFirstDraft() {
+        goToDrafts();
         waitForElementVisible(firstDraft);
         firstDraft.click();
+        return this;
     }
 
     public String readAdresseeOfLetter() {
@@ -53,14 +55,15 @@ public class DraftsPage extends Menu {
         return letterBodyField.getText();
     }
 
-    public DraftsPage sendLetter() {
-        sendLetterButton.click();
-        return this;
-    }
-
     public DraftsPage closeReportLetterMessage() {
         waitForElementVisible(closeSentReportButton);
         closeSentReportButton.click();
+        return this;
+    }
+
+    public DraftsPage sendLetter() {
+        sendLetterButton.click();
+        closeReportLetterMessage();
         return this;
     }
 }
