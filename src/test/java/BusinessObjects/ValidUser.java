@@ -3,7 +3,7 @@ package BusinessObjects;
 /**
  * created by Andrei_Korotkov 9/3/2019
  */
-public class ValidUser {
+public class ValidUser extends User {
 
     public static final String LOGIN = "dfjwgge82h43g3uriy53h";
     public static final String PASSWORD = "PlOkIjUHYGC";

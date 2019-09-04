@@ -74,15 +74,9 @@ public class InboxPage extends Menu {
     }
 
     public void highlightLetterElements () throws InterruptedException {
-//        JavascriptExecutor jsHighlilhter = (JavascriptExecutor)driver;
-
         JSTools.highlightElement(filledAdresseeField);
         JSTools.highlightElement(subjectField);
         JSTools.highlightElement(letterBody);
-//        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", filledAdresseeField);
-//        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", subjectField);
-//        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", letterBody);
-//        Thread.sleep(2000); //для заметности выделения
     }
 
     public InboxPage saveDraft () {
@@ -101,9 +95,6 @@ public class InboxPage extends Menu {
         enterSubject(Message.getSubject());
         enterBodyOfLetter(Message.getBody());
         highlightLetterElements();
-//        JSTools.highlightElement(filledAdresseeField);
-//        JSTools.highlightElement(subjectField);
-//        JSTools.highlightElement(letterBody);
         saveDraft();
         closeFocusField();
         return this;

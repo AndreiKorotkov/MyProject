@@ -3,7 +3,7 @@ package BusinessObjects;
 /**
  * created by Andrei_Korotkov 9/3/2019
  */
-public class InvalidUser{
+public class InvalidUser extends User{
 
     public static final String LOGIN = "IvanIvanov";
     public static final String PASSWORD = "12345678";

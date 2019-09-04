@@ -1,5 +1,6 @@
 package PageObjects;
 
+import BusinessObjects.User;
 import BusinessObjects.ValidUser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,15 +49,14 @@ public class LoginPage extends Menu{
         return this;
     }
 
-    public void loginToMailBox (ValidUser validUser) {
-        String login = validUser.getLOGIN();
-        String password = validUser.getPASSWORD();
-        String domain = validUser.getDOMAIN();
+    public void loginToMailBox (User user) {
+        String login = user.getLOGIN();
+        String password = user.getPASSWORD();
+        String domain = user.getDOMAIN();
         open();
         enterLogin(login);
         enterPassword(password);
         chooseDomain(domain);
         loginForm.submit();
     }
-
 }

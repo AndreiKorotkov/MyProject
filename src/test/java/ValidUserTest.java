@@ -12,16 +12,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-public class ChromeTest {
+public class ValidUserTest {
 
     public static WebDriver driver;
 
     @BeforeClass
     public void startBrowser(){
-        driver = DriverManager.getDriver("firefox");
+        driver = DriverManager.getDriver("chrome");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
     }
@@ -41,9 +40,9 @@ public class ChromeTest {
     @Test(dependsOnMethods = {"writeDraft"})
     public void checkDraft(){
         DraftsPage MailDraftPage = new DraftsPage(driver).clickFirstDraft();
-        Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(), "ankorotkov66@gmail.com");
-        Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), "autoTest");
-        Assert.assertEquals(MailDraftPage.readBodyOfLetter(), "This is autotest letter");
+        Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(), Message.getAddressee());
+        Assert.assertEquals(MailDraftPage.readSubjectOfLetter(), Message.getSubject());
+        Assert.assertEquals(MailDraftPage.readBodyOfLetter(), Message.getBody());
         MailDraftPage.sendLetter();
         Assert.assertEquals(MailDraftPage.readNumberOfDrafts(), "Нет писем");
         MailDraftPage.goToSentMessages();
@@ -52,8 +51,8 @@ public class ChromeTest {
     @Test(dependsOnMethods = {"checkDraft"})
     public void checkSentMessages() {
         SentPage MailSentPage = new SentPage(driver);
-        Assert.assertEquals(MailSentPage.readFirstLetterAdressee(), "ankorotkov66@gmail.com");
-        Assert.assertEquals(MailSentPage.readFirstLetterSubject(), "autoTest");
+        Assert.assertEquals(MailSentPage.readFirstLetterAdressee(), Message.getAddressee());
+        Assert.assertEquals(MailSentPage.readFirstLetterSubject(), Message.getSubject());
         MailSentPage.moveLettersToTrashCan();
         MailSentPage.exitAccount();
     }
