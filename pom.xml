@@ -28,7 +28,7 @@
                 <configuration>
                     <suiteXmlFiles>
                         <xmlFile>
-
+                            src/test/java/testng.xml
                         </xmlFile>
                     </suiteXmlFiles>
                 </configuration>
