@@ -1,6 +1,7 @@
 package PageObjects;
 
-import Messages.Message;
+import BusinessObjects.Message;
+import Utilities.JSTools;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -72,13 +73,16 @@ public class InboxPage extends Menu {
         return this;
     }
 
-    public InboxPage highlightLetterElements () throws InterruptedException {
-        JavascriptExecutor jsHighlilhter = (JavascriptExecutor)driver;
-        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", filledAdresseeField);
-        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", subjectField);
-        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", letterBody);
-        Thread.sleep(2000); //для заметности выделения
-        return this;
+    public void highlightLetterElements () throws InterruptedException {
+//        JavascriptExecutor jsHighlilhter = (JavascriptExecutor)driver;
+
+        JSTools.highlightElement(filledAdresseeField);
+        JSTools.highlightElement(subjectField);
+        JSTools.highlightElement(letterBody);
+//        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", filledAdresseeField);
+//        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", subjectField);
+//        jsHighlilhter.executeScript("arguments[0].setAttribute('style', 'background: yellow; ');", letterBody);
+//        Thread.sleep(2000); //для заметности выделения
     }
 
     public InboxPage saveDraft () {
@@ -93,10 +97,13 @@ public class InboxPage extends Menu {
 
     public InboxPage writeDraft (Message message) throws InterruptedException {
         clickWriteLetter();
-        enterAdressee(message.getAddressee());
-        enterSubject(message.getSubject());
-        enterBodyOfLetter(message.getBody());
+        enterAdressee(Message.getAddressee());
+        enterSubject(Message.getSubject());
+        enterBodyOfLetter(Message.getBody());
         highlightLetterElements();
+//        JSTools.highlightElement(filledAdresseeField);
+//        JSTools.highlightElement(subjectField);
+//        JSTools.highlightElement(letterBody);
         saveDraft();
         closeFocusField();
         return this;

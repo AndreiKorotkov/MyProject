@@ -1,4 +1,4 @@
-package Users;
+package BusinessObjects;
 
 /**
  * created by Andrei_Korotkov 9/3/2019

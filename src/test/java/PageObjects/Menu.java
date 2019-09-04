@@ -28,8 +28,6 @@ public class Menu extends AbstractPage {
 
     public String readNumberOfDrafts () {
         waitForElementHasAttribute(draftsButton, "title");
-        //new WebDriverWait(driver, 10).until(ExpectedConditions.stalenessOf(draftsButton));
-        JavascriptExecutor jsReader = (JavascriptExecutor)driver;
         return draftsButton.getAttribute("title");
     }
 

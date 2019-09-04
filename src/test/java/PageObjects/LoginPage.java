@@ -1,6 +1,6 @@
 package PageObjects;
 
-import Users.ValidUser;
+import BusinessObjects.ValidUser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

@@ -2,23 +2,17 @@
  * created by Andrei_Korotkov 8/26/2019
  */
 
-import Messages.Message;
+import BusinessObjects.Message;
 import PageObjects.*;
 import SystemProperties.DriverManager;
-import Users.InvalidUser;
-import Users.ValidUser;
+import BusinessObjects.ValidUser;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class ChromeTest {
@@ -26,7 +20,7 @@ public class ChromeTest {
     public static WebDriver driver;
 
     @BeforeClass
-    public void startBrowser() throws MalformedURLException {
+    public void startBrowser(){
         driver = DriverManager.getDriver("firefox");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
@@ -41,7 +35,7 @@ public class ChromeTest {
     @Test(dependsOnMethods = {"mailLoginTest"})
     public void writeDraft() throws InterruptedException {
         InboxPage MailInboxPage = new InboxPage(driver).writeDraft(new Message());
-        Assert.assertTrue(MailInboxPage.readNumberOfDrafts() != "Нет писем");
+        Assert.assertNotSame("Нет писем", MailInboxPage.readNumberOfDrafts());
     }
 
     @Test(dependsOnMethods = {"writeDraft"})
