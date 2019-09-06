@@ -6,33 +6,27 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class FirefoxTest {
+public class MailTest {
     public static WebDriver driver;
 
+    @Parameters({"browserName"})
     @BeforeClass
-    public void setup() throws MalformedURLException {
-        System.setProperty("webdriver.gecko.driver", "C:\\Program Files\\Mozilla Firefox\\geckodriver.exe");
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setCapability("Platform", "WIN10");
-        firefoxOptions.setCapability("browserName", "firefox");
-        firefoxOptions.addArguments("start-maximized");
-        firefoxOptions.setCapability(FirefoxDriver.MARIONETTE, true);
-        firefoxOptions.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        URL url = new URL("http://192.168.1.5:4444/wd/hub");
-        driver = new RemoteWebDriver(url, firefoxOptions);
+    public void setup(String browserName) {
+        driver = DriverManager.getDriver(browserName);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
     }
 
     @Test
-    public void mailLoginTest() throws InterruptedException {
-        LoginPage MailLoginPage = new LoginPage(driver).open().enterLogin().chooseDomain().enterPassword().loginToMailBox();
+    public void mailLoginTest(){
+        LoginPage MailLoginPage = new LoginPage(driver).open().enterLogin().chooseDomain().pressEnterPasswordButton().enterPassword().loginToMailBox();
         InboxPage MailInboxPage = new InboxPage(driver);
         Assert.assertEquals(MailInboxPage.getInboxPageURL(), "https://e.mail.ru/inbox/?back=1&afterReload=1");
     }
@@ -47,7 +41,7 @@ public class FirefoxTest {
     }
 
     @Test(dependsOnMethods = {"writeDraft"})
-    public void checkDraft() throws InterruptedException {
+    public void checkDraft(){
         DraftsPage MailDraftPage = new DraftsPage(driver);
         MailDraftPage.clickFirstDraft();
         Assert.assertEquals(MailDraftPage.readAdresseeOfLetter(), "ankorotkov66@gmail.com");
@@ -59,7 +53,7 @@ public class FirefoxTest {
     }
 
     @Test(dependsOnMethods = {"checkDraft"})
-    public void checkSentMessages() throws InterruptedException {
+    public void checkSentMessages() {
         SentPage MailSentPage = new SentPage(driver);
         Assert.assertEquals(MailSentPage.readFirstLetterAdressee(), "ankorotkov66@gmail.com");
         Assert.assertEquals(MailSentPage.readFirstLetterSubject(), "autoTest");

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Default Suite" parallel="classes" thread-count="2">
-    <test name="gridMailTest">
+<suite name="Default Suite" parallel="tests" thread-count="2">
+    <test name="gridMailTestChrome">
+        <parameter name="browserName" value="chrome"></parameter>
         <classes>
-            <class name="FirefoxTest"></class>
-            <class name="ChromeTest"></class>
+            <class name="MailTest"></class>
         </classes>
-    </test> <!-- calculatorTest -->
-</suite> <!-- Default Suite -->
+    </test>
+
+</suite>

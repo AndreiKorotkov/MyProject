@@ -21,6 +21,9 @@ public class LoginPage extends Menu{
     @FindBy(id = "mailbox:domain")
     private WebElement domainSelector;
 
+    @FindBy(css = "input.o-control")
+    private WebElement enterPasswordButton;
+
     @FindBy(id = "auth")
     private WebElement loginForm;
 
@@ -42,15 +45,21 @@ public class LoginPage extends Menu{
         return this;
     }
 
-    public LoginPage enterPassword () {
-        passwordInput.sendKeys(password);
-        return this;
-    }
-
     public LoginPage chooseDomain() {
         new Select(domainSelector).selectByVisibleText("@bk.ru");
         Actions selectDomain = new Actions(driver);
         selectDomain.click(domainSelector).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+        return this;
+    }
+
+    public LoginPage pressEnterPasswordButton() {
+        enterPasswordButton.click();
+        return this;
+    }
+
+    public LoginPage enterPassword () {
+        waitForElementVisible(passwordInput);
+        passwordInput.sendKeys(password);
         return this;
     }
 
